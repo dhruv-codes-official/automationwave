@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dhruv Prajapati — AI Automation done simply</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --paper: #EDE6D6;
+      --paper-light: #F7F2E4;
+      --ink: #23282B;
+      --ink-soft: #4A4F4F;
+      --red: #A63B34;
+      --green: #2F6B4F;
+      --rule: #B9AD93;
+      --max: 780px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'IBM Plex Sans', sans-serif;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 500;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Zilla Slab', serif;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* NAV */
+    nav {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--rule);
+      position: sticky;
+      top: 0;
+      background: rgba(237, 230, 214, 0.95);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+
+    nav .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--ink-soft);
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 2px;
+      transition: all var(--transition);
+    }
+
+    .nav-links a:hover {
+      border-color: var(--ink);
+      color: var(--red);
+    }
+
+    /* HERO */
+    header.hero {
+      padding: 64px 0 40px;
+    }
+
+    header.hero h1 {
+      font-size: clamp(30px, 5.2vw, 46px);
+      line-height: 1.14;
+      margin: 14px 0 18px;
+      max-width: 11.5em;
+    }
+
+    .sub {
+      font-size: 16.5px;
+      color: var(--ink-soft);
+      max-width: 38em;
+      margin-bottom: 30px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+
+    .btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 13px 20px;
+      text-decoration: none;
+      display: inline-block;
+      border: 1px solid var(--ink);
+      transition: transform .15s ease, background .15s ease, color .15s ease;
+      cursor: pointer;
+      border-radius: 0;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: var(--paper-light);
+      border-color: var(--green);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      background: #225544;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .btn-secondary:hover {
+      background: var(--paper-light);
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    /* SIGNATURE LEDGER STRIP */
+    .ledger {
+      background: var(--paper-light);
+      border: 1px solid var(--rule);
+      padding: 22px 22px 26px;
+    }
+
+    .ledger-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--ink-soft);
+      margin-bottom: 16px;
+      border-bottom: 1px dashed var(--rule);
+      padding-bottom: 10px;
+    }
+
+    .ledger-row {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px dashed var(--rule);
+      overflow: hidden;
+    }
+
+    .ledger-row:last-child {
+      border-bottom: none;
+    }
+
+    .task {
+      font-family: 'Kalam', cursive;
+      font-size: 16.5px;
+      color: var(--ink-soft);
+    }
+
+    .stamp {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      color: var(--red);
+      border: 1.5px solid var(--red);
+      padding: 3px 8px;
+      white-space: nowrap;
+      transform: rotate(-6deg) scale(0);
+      opacity: 0;
+      animation: stampIn 6s ease-in-out infinite;
+    }
+
+    .ledger-row:nth-child(2) .stamp {
+      animation-delay: .4s;
+    }
+
+    .ledger-row:nth-child(3) .stamp {
+      animation-delay: 1.7s;
+    }
+
+    .ledger-row:nth-child(4) .stamp {
+      animation-delay: 3s;
+    }
+
+    @keyframes stampIn {
+      0% {
+        transform: rotate(-6deg) scale(0);
+        opacity: 0;
+      }
+      8% {
+        transform: rotate(-6deg) scale(1.15);
+        opacity: 1;
+      }
+      14% {
+        transform: rotate(-6deg) scale(1);
+        opacity: 1;
+      }
+      85% {
+        transform: rotate(-6deg) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: rotate(-6deg) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stamp {
+        animation: none;
+        transform: rotate(-6deg) scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 52px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-label {
+      margin-bottom: 26px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+
+    /* SERVICES */
+    .service-row {
+      display: flex;
+      gap: 20px;
+      padding: 22px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .service-row:last-child {
+      padding-bottom: 0;
+    }
+
+    .service-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      color: var(--red);
+      padding-top: 3px;
+      min-width: 24px;
+    }
+
+    .service-body h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .service-body p {
+      color: var(--ink-soft);
+      font-size: 14.5px;
+      margin-bottom: 8px;
+      max-width: 36em;
+    }
+
+    .price {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12.5px;
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    /* PROCESS */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step {
+      display: flex;
+      gap: 18px;
+      padding: 18px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .step-num {
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--ink-soft);
+      font-size: 13px;
+      min-width: 20px;
+    }
+
+    .step h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .step p {
+      color: var(--ink-soft);
+      font-size: 14px;
+      max-width: 34em;
+    }
+
+    /* TEAM SECTION */
+    .team-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 30px;
+    }
+
+    .team-card {
+      border: 1px solid var(--rule);
+      padding: 28px;
+      background: var(--paper-light);
+      transition: all var(--transition);
+    }
+
+    .team-card:hover {
+      border-color: var(--red);
+      box-shadow: 0 4px 12px rgba(166, 59, 52, 0.1);
+    }
+
+    .team-card h3 {
+      font-size: 20px;
+      margin-bottom: 6px;
+      margin-top: 0;
+    }
+
+    .team-role {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--red);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .team-bio {
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .team-contact {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--green);
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--rule);
+    }
+
+    .team-contact a {
+      color: var(--green);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    .team-contact a:hover {
+      color: var(--red);
+    }
+
+    /* ABOUT + BUILDING */
+    .about p, .building p {
+      color: var(--ink-soft);
+      font-size: 15px;
+      max-width: 38em;
+      margin-bottom: 10px;
+    }
+
+    .building {
+      background: var(--paper-light);
+      border: 1px dashed var(--rule);
+      padding: 20px 22px;
+      margin-top: 26px;
+    }
+
+    .building .eyebrow {
+      margin-bottom: 8px;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 56px 0 60px;
+    }
+
+    footer h2 {
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      color: var(--ink-soft);
+      margin-bottom: 24px;
+      max-width: 32em;
+    }
+
+    .contact-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 24px;
+    }
+
+    .contact-person {
+      border-left: 3px solid var(--green);
+      padding-left: 16px;
+    }
+
+    .contact-person strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    .contact-person a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--green);
+      text-decoration: none;
+      transition: color var(--transition);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .contact-person a:hover {
+      color: var(--red);
+    }
+
+    .foot-note {
+      margin-top: 40px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11.5px;
+      color: var(--ink-soft);
+      opacity: .7;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .team-container {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-info {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 40px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="wrap">
+      <div class="brand">[ Dhruv Prajapati ]</div>
+      <div class="nav-links">
+        <a href="#services">services</a>
+        <a href="#contact">contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Manual work, automated</div>
+      <h1>Your leads message you on WhatsApp. An AI agent should be the one replying.</h1>
+      <p class="sub">I build small, working automations — lead-qualifying bots, WhatsApp assistants, document workflows — for businesses tired of doing it by hand.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://wa.me/918265843950" target="_blank" rel="noopener">Message on WhatsApp</a>
+        <a class="btn btn-secondary" href="mailto:dhruvprajapati06@outlook.com">Send an email</a>
+      </div>
+
+      <div class="ledger">
+        <div class="ledger-title">Daily task log</div>
+        <div class="ledger-row">
+          <span class="task">reply to every WhatsApp lead by hand</span>
+          <span class="stamp">AUTOMATED</span>
+        </div>
+        <div class="ledger-row">
+          <span class="task">chase invoice numbers, one by one</span>
+          <span class="stamp">AUTOMATED</span>
+        </div>
+        <div class="ledger-row">
+          <span class="task">type the same FAQ answer, again</span>
+          <span class="stamp">AUTOMATED</span>
+        </div>
+        <div class="ledger-row">
+          <span class="task">manually qualify inbound leads</span>
+          <span class="stamp">AUTOMATED</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="section-label">
+        <div class="eyebrow">Services</div>
+        <h2>What I build</h2>
+      </div>
+
+      <div class="service-row">
+        <div class="service-num">01</div>
+        <div class="service-body">
+          <h3>Lead qualification bots</h3>
+          <p>Chats with inbound leads on WhatsApp or Telegram, asks the right questions, and logs qualified ones straight to a sheet — so you only spend time on serious buyers.</p>
+          <div class="price">starting at ₹25,000</div>
+        </div>
+      </div>
+
+      <div class="service-row">
+        <div class="service-num">02</div>
+        <div class="service-body">
+          <h3>WhatsApp / Telegram automation</h3>
+          <p>Auto-replies, appointment booking, FAQ handling — running around the clock without a human on the other end.</p>
+          <div class="price">starting at ₹20,000</div>
+        </div>
+      </div>
+
+      <div class="service-row">
+        <div class="service-num">03</div>
+        <div class="service-body">
+          <h3>Document & workflow automation</h3>
+          <p>Turns invoice parsing, data entry, and repetitive admin into a script that runs itself, on your schedule.</p>
+          <div class="price">starting at ₹20,000</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <div class="section-label">
+        <div class="eyebrow">Process</div>
+        <h2>How it works</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <h3>Discovery call</h3>
+            <p>15 minutes to understand the manual task that's costing you time.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <h3>Build</h3>
+            <p>A working version in 1–2 weeks, built and tested against your real workflow — not a generic template.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <h3>Deploy & handover</h3>
+            <p>It runs on your systems. You get a walkthrough, not a black box.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team">
+    <div class="wrap">
+      <div class="section-label">
+        <div class="eyebrow">Team</div>
+        <h2>Who's building this</h2>
+      </div>
+
+      <div class="team-container">
+        <div class="team-card">
+          <h3>Dhruv Prajapati</h3>
+          <div class="team-role">Technical Lead & Developer</div>
+          <p class="team-bio">Computer science student specializing in AI/ML, systems, and low-latency programming. Builds the automation engine and handles architecture.</p>
+          <div class="team-contact">
+            <a href="https://wa.me/918265843950" target="_blank" rel="noopener">WhatsApp: +91 8265843950</a><br>
+            <a href="mailto:dhruvprajapati06@outlook.com">dhruvprajapati06@outlook.com</a>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <h3>Gaurav Agarwal</h3>
+          <div class="team-role">Sales & Business Development</div>
+          <p class="team-bio">Drives growth and client relationships. Understands what businesses need and connects them with the right solutions. Direct point of contact for your project.</p>
+          <div class="team-contact">
+            <a href="https://wa.me/918822153448" target="_blank" rel="noopener">WhatsApp: +91 8822153448</a><br>
+            Your main point of contact for project discussions
+          </div>
+        </div>
+      </div>
+
+      <div class="building" style="margin-top: 40px;">
+        <div class="eyebrow">Early-stage advantage</div>
+        <p>You get direct access to both the builder and the business person. No hand-offs to juniors. Your project gets undivided attention, quick iterations, and technical clarity from someone who understands the code.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="wrap">
+      <div class="section-label">
+        <div class="eyebrow">About</div>
+        <h2>Why we do this</h2>
+      </div>
+      <p>Most automation tools are designed for tech teams. We're not. We work with small teams, founders, service businesses — people doing repetitive work by hand and losing hours every day.</p>
+      <p>We don't build flashy. We build functional. The goal is a system you understand, can modify if your workflow changes, and that actually saves you time.</p>
+
+      <div class="building">
+        <div class="eyebrow">Right now</div>
+        <p>Building a lead-qualification bot end-to-end — from chat webhook to auto-logged leads in a sheet. Reach out and we'll walk you through it live.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="wrap">
+      <div class="eyebrow">Get in touch</div>
+      <h2>Tell me what you're doing by hand.</h2>
+      <p>If it's repetitive, rule-based, and eating your week — there's a good chance it can run itself.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://wa.me/918265843950" target="_blank" rel="noopener">Message Dhruv on WhatsApp</a>
+        <a class="btn btn-secondary" href="https://wa.me/918822153448" target="_blank" rel="noopener">Message Gaurav on WhatsApp</a>
+      </div>
+
+      <div class="contact-info">
+        <div class="contact-person">
+          <strong>Dhruv Prajapati</strong>
+          <a href="https://wa.me/918265843950" target="_blank" rel="noopener">WhatsApp: 8265843950</a>
+          <a href="mailto:dhruvprajapati06@outlook.com">Email: dhruvprajapati06@outlook.com</a>
+        </div>
+        <div class="contact-person">
+          <strong>Gaurav Agarwal</strong>
+          <a href="https://wa.me/918822153448" target="_blank" rel="noopener">WhatsApp: 8822153448</a>
+          <a href="mailto:gaurav@example.com">Business Inquiries</a>
+        </div>
+      </div>
+
+      <div class="foot-note">© 2025 Dhruv Prajapati & Gaurav Agarwal. Small, working automations for businesses.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
